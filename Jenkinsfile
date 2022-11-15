@@ -1,43 +1,19 @@
 pipeline{
     agent any
-    environment{
-        repo = "https://github.com/Sass0nX/requests.git"
-    }
     stages{
-        stage('clone/pull'){
-            steps{
-                
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Sass0nX/requests.git']]])
-                
+        stage('nodejs'){
+            agent {
+                docker {image 'node:16.13.1-alpine'}
+                steps{
+                    sh 'node --version'
+                }
             }
         }
-        stage('Build'){
+        stage('python'){
             steps{
-                sh '''
-                python3 http_e.py
-                '''
-            }
-        }
-        stage('Testing'){
-            steps{
-                sh '''
-                python3 TestRest.py
-                '''
-            }
-        }
-    }   
+                sh 'node --version'
 
-    post{
-        always{
-            echo "d"
-            
-        }
-        success{
-            sh 'docker build -t test .'
-        }
-        failure{
-            echo "Failure u son of a bitch"
-        }
+            }
+        }    
     }
-
 }
