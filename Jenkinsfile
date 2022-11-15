@@ -1,11 +1,11 @@
 pipeline{
     agent any
     stages{
-        stage('nodejs'){
+        stage('python'){
             agent {
-                docker {image 'node:16.13.1-alpine'}
+                docker {image 'python:latest'}
                 steps{
-                    sh 'node --version'
+                    sh 'python app.py'
                 }
             }
         }
