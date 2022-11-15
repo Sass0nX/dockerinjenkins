@@ -1,7 +1,7 @@
 pipeline{
     agent any
     stages{
-        stage('python'){
+        stage ('python') {
             agent {
                 docker {image 'sassisam/maorpython'}
             }
@@ -9,13 +9,13 @@ pipeline{
                 sh 'python app.py'
                 }          
         }
-        stage('node'){
+        stage ('node') {
             agent{
                 docker {image 'node:16.13.1-alpine'}
             }
-            step {
+            steps {
                 sh 'node --version'
-                }
+             }
 
         }    
     }
